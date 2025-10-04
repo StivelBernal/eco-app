@@ -3,15 +3,17 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    // Si el usuario ya está autenticado, redirigir al dashboard
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    
+    // Si no está autenticado, redirigir al login
+    return redirect()->route('login');
 });
 
 Route::get('/dashboard', function () {

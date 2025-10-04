@@ -1,0 +1,26 @@
+header {
+    align-items: center;
+    border-bottom: 1px solid #E5E7EB;
+    display: flex;
+    height: 86px;
+    margin: 0 auto 40px;
+    width: 76%;
+
+    .logo {
+        height: 33px;
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        flex: 1;
+        ul {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+        }
+    }
+    .auth-section {
+        margin-left: auto;
+    }
+}
