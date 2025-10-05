@@ -21,13 +21,13 @@ export const Header = () => {
                     <li><Link href={route('dashboard')}>Inicio</Link></li>
                     {isAuthenticated ? (
                         <>
-                            <li><Link href={route('recolecciones.index')}>Mis Recolecciones</Link></li>
-                            <li><Link href={route('recolecciones.create')}>Nueva Recolección</Link></li>
+                            <li><Link href={route('recolecciones.index')}>Reportes</Link></li>
+                            <li><Link href={route('profile.edit')}>Perfil</Link></li>
                         </>
                     ) : (
                         <>
-                            <li><Link href="/servicios">Servicios</Link></li>
-                            <li><Link href="/contacto">Contacto</Link></li>
+                            <li><Link href={route('servicios')}>Servicios</Link></li>
+                            <li><Link href={route('contacto')}>Contacto</Link></li>
                         </>
                     )}
                 </ul>
@@ -50,9 +50,6 @@ export const Header = () => {
                         <span className="user-greeting">
                             Hola, {user?.name}
                         </span>
-                        <Link className="link-btn" href={route('dashboard')}>
-                            Dashboard
-                        </Link>
                         <Link 
                             className="link-btn" 
                             href={route('logout')} 
