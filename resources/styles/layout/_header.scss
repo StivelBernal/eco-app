@@ -4,6 +4,7 @@ header {
     display: flex;
     height: 86px;
     margin: 0 auto;
+    justify-content: space-between;
     width: 76%;
 
     .logo-app {
@@ -14,13 +15,26 @@ header {
         display: flex;
         justify-content: center;
         flex: 1;
+        margin-left: 12%;
         ul {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             list-style: none;
+            li a {
+                color: var(--color-secondary);
+                font-size: 16px;
+                font-weight: 500;
+                text-decoration: none;
+                &:hover {
+                    color: var(--color-primary);
+                    text-decoration: underline;
+                }
+            }
         }
     }
     .auth-section {
+        display: flex;
+        gap: 10px;
         margin-left: auto;
     }
 }

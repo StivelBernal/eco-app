@@ -19,6 +19,8 @@ export const Header = () => {
 
       <div className="auth-section">
         <Link className="link-btn" href={route('login')}>Iniciar sesión</Link>
+        <Link className="link-btn" href={route('register')}>Registrarse</Link>
+
       </div>
 
     </header>
