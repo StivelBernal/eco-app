@@ -12,6 +12,8 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        direccion: "",
+        localidad: "",
     });
 
     const submit = (e) => {
@@ -107,6 +109,42 @@ export default function Register() {
                             className="mt-2"
                         />
                     </div>
+
+                     <div className='form-control mb-6'>
+
+                        <TextInput
+                            id="direccion"
+                            name="direccion"
+                            placeholder="Dirección"
+                            value={data.direccion}
+                            className="mt-1 block w-full"
+                            autoComplete="direccion"
+                            isFocused={true}
+                            onChange={(e) => setData('direccion', e.target.value)}
+                            required
+                        />
+
+                        <InputError message={errors.direccion} className="mt-2" />
+                    </div>
+
+
+                    <div className='form-control mb-6'>
+
+                        <TextInput
+                            id="localidad"
+                            name="localidad"
+                            placeholder="Localidad"
+                            value={data.localidad}
+                            className="mt-1 block w-full"
+                            autoComplete="localidad"
+                            isFocused={true}
+                            onChange={(e) => setData('localidad', e.target.value)}
+                            required
+                        />
+
+                        <InputError message={errors.localidad} className="mt-2" />
+                    </div>
+
 
                     <PrimaryButton className="mb-8" disabled={processing}>
                         Registrarse

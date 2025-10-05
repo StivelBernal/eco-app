@@ -1,28 +1,69 @@
 import ApplicationLogo from "@/Components/ApplicationLogo"
 import { Link } from "@inertiajs/react"
+import { useAuth } from "@/Hooks/useAuth"
+
+// Helper para las rutas de Laravel
+declare global {
+    function route(name: string, params?: any): string;
+}
 
 export const Header = () => {
-    // TODO: Crear versiones con autenticacion y sin autenticación
-  return (
-    <header>
-      <Link href="/">
-        <ApplicationLogo />
-      </Link>
+    const { user, isAuthenticated, isGuest } = useAuth();
 
-      <nav>
-        <ul>
-          <li><Link href={route('dashboard')}>Inicio</Link></li>
-          <li><Link href={route('register')}>Servicios</Link></li>
-          <li><Link href={route('login')}>Contacto</Link></li>
-        </ul>
-      </nav>
+    return (
+        <header>
+            <Link href="/">
+                <ApplicationLogo />
+            </Link>
 
-      <div className="auth-section">
-        <Link className="link-btn" href={route('login')}>Iniciar sesión</Link>
-        <Link className="link-btn" href={route('register')}>Registrarse</Link>
+            <nav>
+                <ul>
+                    <li><Link href={route('dashboard')}>Inicio</Link></li>
+                    {isAuthenticated ? (
+                        <>
+                            <li><Link href={route('recolecciones.index')}>Mis Recolecciones</Link></li>
+                            <li><Link href={route('recolecciones.create')}>Nueva Recolección</Link></li>
+                        </>
+                    ) : (
+                        <>
+                            <li><Link href="/servicios">Servicios</Link></li>
+                            <li><Link href="/contacto">Contacto</Link></li>
+                        </>
+                    )}
+                </ul>
+            </nav>
 
-      </div>
-
-    </header>
-  )
+            <div className="auth-section">
+                {isGuest ? (
+                    // Mostrar cuando el usuario NO está autenticado
+                    <>
+                        <Link className="link-btn" href={route('login')}>
+                            Iniciar sesión
+                        </Link>
+                        <Link className="link-btn" href={route('register')}>
+                            Registrarse
+                        </Link>
+                    </>
+                ) : (
+                    // Mostrar cuando el usuario SÍ está autenticado
+                    <>
+                        <span className="user-greeting">
+                            Hola, {user?.name}
+                        </span>
+                        <Link className="link-btn" href={route('dashboard')}>
+                            Dashboard
+                        </Link>
+                        <Link 
+                            className="link-btn" 
+                            href={route('logout')} 
+                            method="post" 
+                            as="button"
+                        >
+                            Cerrar sesión
+                        </Link>
+                    </>
+                )}
+            </div>
+        </header>
+    )
 }
