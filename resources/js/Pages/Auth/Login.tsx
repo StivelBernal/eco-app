@@ -2,7 +2,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
+import Button from '@/Components/Button';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
@@ -40,17 +40,16 @@ export default function Login({ status, canResetPassword }) {
 
                     <ApplicationLogo className="mb-4" height={35} />
 
-                    <span className="authentication-box-title mb-[12px]">Inicia sesión</span>
+                    <span className="authentication-box-title mb-[12px]">Iniciar sesión</span>
                     <span className="authentication-box-subtitle mb-[8px]">Ingresa para gestionar la recolección de tus residuos.</span>
 
-                    <div className='form-control'>
+                    <div className='form-control mb-6'>
 
                         <TextInput
                             id="email"
                             type="email"
                             name="email"
                             value={data.email}
-                            className="mt-1 block w-full"
                             placeholder="Correo electrónico"
                             autoComplete="username"
                             isFocused={true}
@@ -60,27 +59,25 @@ export default function Login({ status, canResetPassword }) {
                         <InputError message={errors.email} className="mt-2" />
                     </div>
 
-                    <div className="mt-4">
-                        <InputLabel htmlFor="password" value="Password" />
+                    <div className="form-control mb-6">
 
                         <TextInput
                             id="password"
                             type="password"
                             name="password"
                             value={data.password}
-                            className="mt-1 block w-full"
+                            placeholder="Contraseña"
                             autoComplete="current-password"
                             onChange={(e) => setData('password', e.target.value)}
                         />
-
                         <InputError message={errors.password} className="mt-2" />
                     </div>
 
-                    <PrimaryButton className="mb-4" disabled={processing}>
+                    <Button className="mb-4" styleType='primary' disabled={processing}>
                         Ingresar
-                    </PrimaryButton>
+                    </Button>
 
-                    <div className="mt-4 flex items-center justify-end">
+                    <div className="authentication-box-links mb-6">
                         {canResetPassword && (
                             <>
 
@@ -89,7 +86,6 @@ export default function Login({ status, canResetPassword }) {
                                 </span>
                                 <Link
                                     href={route('password.request')}
-                                    className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 >
                                     recuperar cuenta
                                 </Link>

@@ -1,7 +1,7 @@
 .authentication-box-content {
     background-color: white;
     box-shadow: 0px 0px 0px 0px #00000000, 0px 0px 0px 0px #00000000, 0px 10px 15px -3px #0000001A, 0px 4px 6px -4px #0000001A;
-    padding: 24px;
+    padding: 40px 24px;
     width: 435px;
     max-width: 50vw;
     border-radius: 12px;
@@ -24,6 +24,27 @@
             align-self: flex-start;
             color: #6B7280;
             font-size: 14px;
+        }
+        .authentication-box-links {
+            align-items: center;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+            span {
+                color: #6B7280;
+                font-size: 14px;
+                font-weight: 400;
+            }
+            a {
+                color: var(--color-primary);
+                font-size: 14px;
+                font-weight: 500;
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }

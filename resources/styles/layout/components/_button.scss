@@ -1,0 +1,24 @@
+.button-app {
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    width: 100%;
+    &:hover {
+        cursor: pointer;
+    }
+    &.button-primary {
+        background-color: var(--color-primary);
+    }
+    
+    &.button-secondary {
+        background-color: var(--color-secondary);
+    }
+    &:hover, &:focus, &:active {
+        opacity: 0.9;
+        font-weight: bold;
+    }
+}
