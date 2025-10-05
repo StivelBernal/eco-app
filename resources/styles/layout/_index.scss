@@ -1,4 +1,6 @@
 @use './header';
+@use './components/input';
+
 body {
     background-color: #F6F8F6;
 }
@@ -7,6 +9,17 @@ main {
     padding: 1rem;
     max-width: 1200px;
     margin: 0 auto;
+    &.unlogged-page {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin-top: 120px;
+    }
+    
+    .logo-app {
+        height: 33px;
+    }
 }
 
 

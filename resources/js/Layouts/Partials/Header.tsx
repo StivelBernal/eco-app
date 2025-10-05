@@ -1,3 +1,4 @@
+import ApplicationLogo from "@/Components/ApplicationLogo"
 import { Link } from "@inertiajs/react"
 
 export const Header = () => {
@@ -5,7 +6,7 @@ export const Header = () => {
   return (
     <header>
       <Link href="/">
-        <img src="/images/logo.png" alt="Logo ecoAPP" />
+        <ApplicationLogo />
       </Link>
 
       <nav>
