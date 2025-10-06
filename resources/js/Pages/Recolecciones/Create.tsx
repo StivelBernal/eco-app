@@ -1,14 +1,10 @@
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 import ReactDatePicker from 'react-datepicker';
 
-const proximas = [
-    { tipo: 'Orgánico', fecha: '15 de Mayo, 2024', estado: 'Pendiente' },
-    { tipo: 'Reciclable', fecha: '22 de Mayo, 2024', estado: 'Realizada' },
-    { tipo: 'Voluminoso', fecha: '29 de Mayo, 2024', estado: 'Cancelada' },
-];
+
 
 const estadoColor: any = {
     Pendiente: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
@@ -18,18 +14,26 @@ const estadoColor: any = {
 
 export default function RecoleccionesCreate() {
 
-    const { tiposResiduos } = usePage().props as { tiposResiduos: { id: number, nombre: string }[] };
+    const { tiposResiduos, proximas } = usePage().props as any;
     const [tipoResiduo, setTipoResiduo] = useState(tiposResiduos.length > 0 ? tiposResiduos[0].id : '');
     const [fecha, setFecha] = useState<Date | null>(new Date());
 
     console.log({ tipoResiduo, fecha });
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        router.post(route('recolecciones.store'), {
+            tipo_residuo_id: tipoResiduo,
+            fecha: fecha ? fecha.toISOString().slice(0, 10) : '',
+        });
+    };
 
     return (
         <AuthenticatedLayout header={<h1 className="text-2xl font-bold mb-6">Programar Recolección</h1>}>
             <Head title="Programar Recolección" />
             <div className="flex flex-col md:flex-row gap-12 items-start justify-center py-12 px-2 bg-[#f6f9f6] min-h-[70vh]">
                 {/* Formulario */}
-                <form className="bg-white rounded-2xl p-8 shadow w-full max-w-md border border-[#e6ebea]" style={{ minWidth: 340 }}>
+                <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 shadow w-full max-w-md border border-[#e6ebea]" style={{ minWidth: 340 }}>
                     <label className="block mb-6">
                         <span className="block font-semibold mb-2 text-gray-900 text-lg">Tipo de Residuo</span>
                         <select
@@ -71,15 +75,21 @@ export default function RecoleccionesCreate() {
                             </tr>
                         </thead>
                         <tbody>
-                            {proximas.map((r, i) => (
-                                <tr key={i} className="border-t last:border-b-0 border-[#e6ebea]">
-                                    <td className="py-2 text-gray-900 font-medium">{r.tipo}</td>
-                                    <td className="py-2 text-gray-700">{r.fecha}</td>
-                                    <td className="py-2">
-                                        <span className={`px-3 py-1 rounded-full font-semibold text-xs ${estadoColor[r.estado] || ''} border`}>{r.estado}</span>
-                                    </td>
+                            {proximas && proximas.length > 0 ? (
+                                proximas.map((r, i) => (
+                                    <tr key={i} className="border-t last:border-b-0 border-[#e6ebea]">
+                                        <td className="py-2 text-gray-900 font-medium">{r.tipo}</td>
+                                        <td className="py-2 text-gray-700">{r.fecha}</td>
+                                        <td className="py-2">
+                                            <span className={`px-3 py-1 rounded-full font-semibold text-xs ${estadoColor[r.estado] || ''} border`}>{r.estado}</span>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={3} className="text-center text-gray-400 py-4">No hay próximas recolecciones</td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                 </div>

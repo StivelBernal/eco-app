@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recoleccion;
+use App\Services\RecoleccionService;
 use App\Models\TipoResiduo;
 use App\Models\EmpresaRecolectora;
 use Illuminate\Http\Request;
@@ -45,46 +46,46 @@ class RecoleccionController extends Controller
     public function create(): Response
     {
         $tiposResiduos = TipoResiduo::all();
-        $empresasRecolectoras = EmpresaRecolectora::all();
+
+        $proximasRecolecciones = Recoleccion::with('tipoResiduo')
+            ->where('user_id', Auth::id())
+            ->whereDate('fecha', '>=', now()->toDateString())
+            ->orderBy('fecha', 'asc')
+            ->limit(3)
+            ->get();
+
+        $proximas = $proximasRecolecciones->map(function ($rec) {
+            return [
+                'tipo' => $rec->tipoResiduo ? $rec->tipoResiduo->nombre : '',
+                'fecha' => \Carbon\Carbon::parse($rec->fecha)->translatedFormat('d \d\e F, Y'),
+                'estado' => ucfirst($rec->estado),
+            ];
+        });
 
         return Inertia::render('Recolecciones/Create', [
             'tiposResiduos' => $tiposResiduos,
-            'empresasRecolectoras' => $empresasRecolectoras
+            'proximas' => $proximas,
         ]);
     }
 
     /**
      * Guardar nueva recolección
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request, RecoleccionService $service): RedirectResponse
     {
         $request->validate([
             'tipo_residuo_id' => 'required|exists:tipo_residuos,id',
-            'empresa_recolectora_id' => 'required|exists:empresa_recolectoras,id',
-            'cantidad_kg' => 'required|numeric|min:0.1|max:10000',
-            'fecha_recoleccion' => 'required|date|before_or_equal:today',
-            'observaciones' => 'nullable|string|max:500',
+            'fecha' => 'required|date',
         ]);
 
-        // Calcular puntos basados en la cantidad (ejemplo: 1 punto por kg)
-        $puntos = (int) $request->cantidad_kg;
-
-        $recoleccion = Recoleccion::create([
-            'user_id' => Auth::id(),
+        $service->crear([
             'tipo_residuo_id' => $request->tipo_residuo_id,
-            'empresa_recolectora_id' => $request->empresa_recolectora_id,
-            'cantidad_kg' => $request->cantidad_kg,
-            'fecha_recoleccion' => $request->fecha_recoleccion,
-            'observaciones' => $request->observaciones,
-            'puntos_obtenidos' => $puntos,
-            'estado' => 'completada'
+            'fecha' => $request->fecha,
+            // Puedes agregar más campos aquí si lo deseas
         ]);
-
-        // Actualizar puntos del usuario
-        Auth::user()->increment('puntos', $puntos);
 
         return redirect()->route('recolecciones.index')
-            ->with('success', "¡Recolección registrada! Has ganado {$puntos} puntos.");
+            ->with('success', '¡Recolección registrada correctamente!');
     }
 
     /**
