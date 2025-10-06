@@ -1,0 +1,1 @@
+import{j as e}from"./app-Cssgh3Vw.js";import{H as t}from"./Header-06dNh0_J.js";function r({children:s}){return e.jsxs(e.Fragment,{children:[e.jsx(t,{}),e.jsx("main",{className:"main-content unlogged-page",children:s})]})}export{r as G};

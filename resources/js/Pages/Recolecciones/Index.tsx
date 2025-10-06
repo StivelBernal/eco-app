@@ -1,7 +1,6 @@
-
-
 import Button from '@/Components/Button';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { useAuth } from '@/Hooks/useAuth';
 import { PageProps } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
@@ -15,6 +14,7 @@ type Recoleccion = {
 
 export default function RecoleccionesIndex() {
     const { recolecciones } = usePage<PageProps<{ recolecciones: Recoleccion[] }>>().props;
+    const { userPoints } = useAuth();
     console.log({ recolecciones });
 
     return (
@@ -30,7 +30,7 @@ export default function RecoleccionesIndex() {
                     </div>
                     <div className="points">
                         <div className="label">Puntos Acumulados</div>
-                        <div className="value">1250</div>
+                        <div className="value">{userPoints}</div>
                     </div>
                 </header>
 
