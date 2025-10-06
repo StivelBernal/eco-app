@@ -1,6 +1,6 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/Button';
+import Button from '@/Components/Button';
 import TextInput from '@/Components/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
@@ -16,6 +16,8 @@ export default function UpdateProfileInformation({
         useForm({
             name: user.name,
             email: user.email,
+            direccion: user.direccion || '',
+            localidad: user.localidad || '',
         });
 
     const submit = (e) => {
@@ -26,20 +28,16 @@ export default function UpdateProfileInformation({
 
     return (
         <section className={className}>
-            <header>
-                <h2 className="text-lg font-medium text-gray-900">
-                    Profile Information
-                </h2>
-
-                <p className="mt-1 text-sm text-gray-600">
-                    Update your account's profile information and email address.
-                </p>
-            </header>
-
             <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                    Información del perfil
+                </h2>
+                <p className="text-gray-500 mb-6 text-base">
+                    Actualiza la información de perfil y la dirección de correo
+                    electrónico de tu cuenta.
+                </p>
+                <div className="form-control">
+                    <InputLabel htmlFor="name" value="Nombre" />
                     <TextInput
                         id="name"
                         className="mt-1 block w-full"
@@ -49,13 +47,10 @@ export default function UpdateProfileInformation({
                         isFocused
                         autoComplete="name"
                     />
-
                     <InputError className="mt-2" message={errors.name} />
                 </div>
-
-                <div>
-                    <InputLabel htmlFor="email" value="Email" />
-
+                <div className="form-control">
+                    <InputLabel htmlFor="email" value="Correo electrónico" />
                     <TextInput
                         id="email"
                         type="email"
@@ -65,35 +60,59 @@ export default function UpdateProfileInformation({
                         required
                         autoComplete="username"
                     />
-
                     <InputError className="mt-2" message={errors.email} />
+                </div>
+                <div className="flex gap-4">
+                    <div className="form-control flex-1">
+                        <InputLabel htmlFor="direccion" value="Dirección" />
+                        <TextInput
+                            id="direccion"
+                            className="mt-1 block w-full"
+                            value={data.direccion}
+                            onChange={(e) => setData('direccion', e.target.value)}
+                            autoComplete="street-address"
+                        />
+                        <InputError className="mt-2" message={errors.direccion} />
+                    </div>
+                    <div className="form-control flex-1">
+                        <InputLabel htmlFor="localidad" value="Localidad" />
+                        <TextInput
+                            id="localidad"
+                            className="mt-1 block w-full"
+                            value={data.localidad}
+                            onChange={(e) => setData('localidad', e.target.value)}
+                            autoComplete="address-level2"
+                        />
+                        <InputError className="mt-2" message={errors.localidad} />
+                    </div>
                 </div>
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="mt-2 text-sm text-gray-800">
-                            Your email address is unverified.
+                            Tu dirección de correo electrónico no está verificada.
                             <Link
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
                                 className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             >
-                                Click here to re-send the verification email.
+                                Haz clic aquí para reenviar el correo electrónico de
+                                verificación.
                             </Link>
                         </p>
 
                         {status === 'verification-link-sent' && (
                             <div className="mt-2 text-sm font-medium text-green-600">
-                                A new verification link has been sent to your
-                                email address.
+                                Se ha enviado un nuevo enlace de verificación a tu
+                                dirección de correo electrónico.
                             </div>
                         )}
                     </div>
                 )}
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <Button disabled={processing}>Guardar</Button>
 
                     <Transition
                         show={recentlySuccessful}
@@ -102,9 +121,7 @@ export default function UpdateProfileInformation({
                         leave="transition ease-in-out"
                         leaveTo="opacity-0"
                     >
-                        <p className="text-sm text-gray-600">
-                            Saved.
-                        </p>
+                        <p className="text-sm text-gray-600">Guardado.</p>
                     </Transition>
                 </div>
             </form>
