@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->string('nombre');
             $table->text('descripcion')->nullable();
             $table->string('frecuencia_recoleccion')->nullable();
-            $table->foreignId('empresa_id')->constrained('empresa_recolectoras')->onDelete('cascade');
+            $table->foreignId('empresa_id')->nullable()->constrained('empresa_recolectoras')->onDelete('cascade');
             $table->integer('puntos_asignados')->default(0);
             $table->timestamps();
         });

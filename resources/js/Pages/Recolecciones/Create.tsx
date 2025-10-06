@@ -1,14 +1,8 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
-import { useState } from "react";
-import ReactDatePicker from "react-datepicker";
 
-
-const tiposResiduos = [
-    { value: 'organico', label: 'Orgánico' },
-    { value: 'reciclable', label: 'Reciclable' },
-    { value: 'voluminoso', label: 'Voluminoso' },
-];
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { Head, usePage } from '@inertiajs/react';
+import { useState } from 'react';
+import ReactDatePicker from 'react-datepicker';
 
 const proximas = [
     { tipo: 'Orgánico', fecha: '15 de Mayo, 2024', estado: 'Pendiente' },
@@ -23,7 +17,9 @@ const estadoColor: any = {
 };
 
 export default function RecoleccionesCreate() {
-    const [tipoResiduo, setTipoResiduo] = useState(tiposResiduos[0].value);
+
+    const { tiposResiduos } = usePage().props as { tiposResiduos: { id: number, nombre: string }[] };
+    const [tipoResiduo, setTipoResiduo] = useState(tiposResiduos.length > 0 ? tiposResiduos[0].id : '');
     const [fecha, setFecha] = useState<Date | null>(new Date());
 
     return (
@@ -40,7 +36,7 @@ export default function RecoleccionesCreate() {
                             onChange={e => setTipoResiduo(e.target.value)}
                         >
                             {tiposResiduos.map(opt => (
-                                <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                <option key={opt.id} value={opt.id}>{opt.nombre}</option>
                             ))}
                         </select>
                     </label>
