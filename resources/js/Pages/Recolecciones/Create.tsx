@@ -22,6 +22,8 @@ export default function RecoleccionesCreate() {
     const [tipoResiduo, setTipoResiduo] = useState(tiposResiduos.length > 0 ? tiposResiduos[0].id : '');
     const [fecha, setFecha] = useState<Date | null>(new Date());
 
+    console.log({ tipoResiduo, fecha });
+
     return (
         <AuthenticatedLayout header={<h1 className="text-2xl font-bold mb-6">Programar Recolección</h1>}>
             <Head title="Programar Recolección" />
