@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recoleccion extends Model
 {
+    protected $table = 'recolecciones';
     use HasFactory;
 
     protected $fillable = [

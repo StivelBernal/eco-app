@@ -1,0 +1,47 @@
+@use './recolections';
+
+.action-bottom {
+    margin-left: auto;
+    max-width: max-content;
+    margin-top: 20px;
+    button {
+        max-width: 200px;
+    }
+}
+
+header.page-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        h1.recolecciones-title {
+            margin: 0 0 6px 0;
+            font-size: 28px;
+            font-weight: 700;
+            color: #12301f;
+        }
+        p.lead {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .points {
+            background: linear-gradient(180deg, #f6fff6, #f0fff2);
+            border-radius: 12px;
+            padding: 18px 20px;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+            border: 1px solid #e6efe6;
+        }
+        .points .label {
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .points .value {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 6px;
+        }
+    }

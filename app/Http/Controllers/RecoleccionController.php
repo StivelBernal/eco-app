@@ -18,10 +18,21 @@ class RecoleccionController extends Controller
      */
     public function index(): Response
     {
-        $recolecciones = Recoleccion::with(['tipoResiduo', 'empresaRecolectora'])
+        $recolecciones = Recoleccion::with('tipoResiduo')
             ->where('user_id', Auth::id())
-            ->orderBy('fecha_recoleccion', 'desc')
-            ->paginate(10);
+            ->orderBy('fecha', 'desc')
+            ->get(['id', 'fecha', 'tipo_residuo_id', 'estado', 'peso']);
+
+        // Mapear para enviar el nombre del tipo de residuo directamente
+        $recolecciones = $recolecciones->map(function ($rec) {
+            return [
+                'id' => $rec->id,
+                'fecha' => $rec->fecha,
+                'tipo_residuo' => $rec->tipoResiduo ? $rec->tipoResiduo->nombre : '',
+                'estado' => $rec->estado,
+                'peso' => $rec->peso,
+            ];
+        });
 
         return Inertia::render('Recolecciones/Index', [
             'recolecciones' => $recolecciones

@@ -1,5 +1,7 @@
 @use './layout/index';
 @use './guest/guest';
+@use './authenticated/authenticated';
+@use 'react-datepicker/dist/react-datepicker.css';
 
 @tailwind base;
 @tailwind components;

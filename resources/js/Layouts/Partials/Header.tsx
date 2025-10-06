@@ -31,7 +31,7 @@ export const Header = () => {
     }, [dropdownOpen]);
 
     return (
-        <header>
+        <header className="primary-header">
             <Link href="/">
                 <ApplicationLogo />
             </Link>
@@ -41,7 +41,7 @@ export const Header = () => {
                     <li><Link href={route('dashboard')}>Inicio</Link></li>
                     {isAuthenticated ? (
                         <>
-                            <li><Link href={route('recolecciones.index')}>Reportes</Link></li>
+                            <li><Link href={route('recolecciones.index')}>Recolecciones</Link></li>
                             <li><Link href={route('profile.edit')}>Perfil</Link></li>
                         </>
                     ) : (

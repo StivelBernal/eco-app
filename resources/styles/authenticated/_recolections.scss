@@ -1,0 +1,182 @@
+// Personalización react-datepicker
+.react-datepicker {
+    border-radius: 16px !important;
+    border: 1px solid #e6ebea !important;
+    box-shadow: 0 1px 0 rgba(3, 20, 12, 0.04);
+    font-family: inherit;
+    background: #f6f9f6;
+}
+.react-datepicker__header {
+    background: #f6f9f6;
+    border-bottom: 1px solid #e6ebea;
+    border-radius: 16px 16px 0 0;
+}
+.react-datepicker__current-month {
+    color: #12301f;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+.react-datepicker__day-name, .react-datepicker__day {
+    color: #22312b;
+    font-weight: 500;
+    width: 2.2rem;
+    line-height: 2.2rem;
+    margin: 2px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+.react-datepicker__day--selected, .react-datepicker__day--keyboard-selected {
+    background: #16c23a;
+    color: #fff !important;
+}
+.react-datepicker__day--today {
+    border: 1.5px solid #16c23a;
+}
+.react-datepicker__day:hover {
+    background: #e8fced;
+    color: #16c23a;
+}
+.react-datepicker__navigation {
+    top: 18px;
+}
+.react-datepicker__navigation-icon::before {
+    border-color: #16c23a;
+}
+.react-datepicker__month-container {
+    padding-bottom: 8px;
+}
+.recolecciones-page {
+	color: #22312b;
+
+
+    --bg: #f6f9f6;
+	--card: #ffffff;
+	--muted: #9aa19a;
+	--accent: #16c23a;
+	--accent-soft: #e8fced;
+	--line: #e6ebea;
+	--pill-bg: rgba(23, 190, 77, 0.12);
+	--pill-border: rgba(23, 190, 77, 0.25);
+    
+	margin: 0 auto;
+    width: 100%;
+    
+
+    .card {
+        margin-top: 24px;
+        background: var(--card);
+        border-radius: 12px;
+        padding: 22px;
+        box-shadow: 0 1px 0 rgba(3, 20, 12, 0.04);
+        border: 1px solid var(--line);
+    }
+
+    .filters {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+    .field {
+        flex: 1;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        background: var(--bg);
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid #e7eee9;
+        min-height: 44px;
+    }
+    .field input {
+        border: 0;
+        background: transparent;
+        outline: none;
+        font-size: 14px;
+        color: #314033;
+        width: 100%;
+    }
+    .filter-btn {
+        background: var(--accent);
+        color: white;
+        border: 0;
+        padding: 10px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        box-shadow: 0 6px 18px rgba(20, 150, 50, 0.08);
+    }
+
+    .table-wrap {
+        margin-top: 8px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+    thead tr {
+        background: transparent;
+    }
+    th, td {
+        text-align: left;
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--line);
+        vertical-align: middle;
+    }
+    th {
+        color: #6b776f;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    td.date {
+        color: #95a089;
+        font-weight: 500;
+    }
+    td.type {
+        color: #1f2b26;
+        font-weight: 600;
+    }
+    td.peso {
+        text-align: right;
+        color: #6b776f;
+    }
+
+    .pill {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 13px;
+        border-radius: 999px;
+        background: var(--pill-bg);
+        border: 1px solid var(--pill-border);
+        color: var(--accent);
+        font-weight: 700;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+    }
+
+    @media (max-width: 900px) {
+        .filters {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        header.recolecciones-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .points {
+            align-self: flex-end;
+        }
+        th, td {
+            padding: 12px;
+        }
+    }
+
+    tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+}
