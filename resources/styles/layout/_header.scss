@@ -36,5 +36,95 @@ header {
         display: flex;
         gap: 10px;
         margin-left: auto;
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+
+            .notifications {
+                cursor: pointer;
+                img {
+                    width: 24px;
+                    height: 24px;
+                    filter: grayscale(0.3);
+                    transition: filter 0.2s;
+                    &:hover {
+                        filter: grayscale(0) brightness(1.2);
+                    }
+                }
+            }
+            .user-avatar {
+                width: 36px;
+                height: 36px;
+                background: #e5e7eb;
+                color: #222;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1.1rem;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+                cursor: pointer;
+                transition: background 0.2s;
+                &:hover {
+                    background: var(--color-primary, #4ade80);
+                    color: #fff;
+                }
+            }
+            .user-greeting {
+                font-size: 1rem;
+                color: var(--color-secondary, #222);
+                font-weight: 500;
+                margin-left: 4px;
+            }
+            .dropdown-indicator {
+                font-size: 1.1rem;
+                color: #888;
+                margin-left: 2px;
+                cursor: pointer;
+                user-select: none;
+                transition: color 0.2s;
+
+                .img {
+                    width: 16px;
+                    height: 16px;   
+                }
+                &:hover {
+                    color: var(--color-primary, #4ade80);
+                }
+            }
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                top: 120%;
+                right: 0;
+                background: #fff;
+                border: 1px solid #e5e7eb;
+                border-radius: 8px;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+                min-width: 160px;
+                z-index: 10;
+                flex-direction: column;
+                padding: 8px 0;
+                a {
+                    display: block;
+                    padding: 10px 20px;
+                    color: var(--color-secondary, #222);
+                    text-decoration: none;
+                    font-size: 15px;
+                    transition: background 0.2s, color 0.2s;
+                    &:hover {
+                        background: var(--color-primary, #4ade80);
+                        color: #fff;
+                    }
+                }
+            }
+            &:hover .dropdown-menu {
+                display: flex;
+            }
+        }
     }
 }

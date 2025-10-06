@@ -1,6 +1,7 @@
 import ApplicationLogo from "@/Components/ApplicationLogo"
 import { Link } from "@inertiajs/react"
 import { useAuth } from "@/Hooks/useAuth"
+import { useState, useRef, useEffect } from "react"
 
 // Helper para las rutas de Laravel
 declare global {
@@ -9,6 +10,25 @@ declare global {
 
 export const Header = () => {
     const { user, isAuthenticated, isGuest } = useAuth();
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const userActionsRef = useRef<HTMLDivElement>(null);
+
+    // Cerrar el menú si se hace click fuera
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (userActionsRef.current && !userActionsRef.current.contains(event.target as Node)) {
+                setDropdownOpen(false);
+            }
+        }
+        if (dropdownOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [dropdownOpen]);
 
     return (
         <header>
@@ -35,7 +55,6 @@ export const Header = () => {
 
             <div className="auth-section">
                 {isGuest ? (
-                    // Mostrar cuando el usuario NO está autenticado
                     <>
                         <Link className="link-btn" href={route('login')}>
                             Iniciar sesión
@@ -45,19 +64,26 @@ export const Header = () => {
                         </Link>
                     </>
                 ) : (
-                    // Mostrar cuando el usuario SÍ está autenticado
                     <>
+                      <div className="user-actions" ref={userActionsRef}>
+                        <div className="notifications">
+                            <img src="/images/notificacion.svg" alt="Notificaciones" />
+                        </div>
+                        <div className="user-avatar" title={user?.name} onClick={() => setDropdownOpen((v) => !v)}>
+                          {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                        </div>
                         <span className="user-greeting">
-                            Hola, {user?.name}
+                            Hola, {user?.name.split(' ')[0]}
                         </span>
-                        <Link 
-                            className="link-btn" 
-                            href={route('logout')} 
-                            method="post" 
-                            as="button"
-                        >
-                            Cerrar sesión
-                        </Link>
+                        <div className="dropdown-indicator" onClick={() => setDropdownOpen((v) => !v)}>
+                          <img src="/images/arrow-down.svg" alt="Notificaciones" />
+                        </div>
+                        <div className="dropdown-menu" style={{ display: dropdownOpen ? 'flex' : 'none' }}>
+                          <Link href={route('dashboard')}>Dashboard</Link>
+                          <Link href={route('profile.edit')}>Perfil</Link>
+                          <Link method="post"  href={route('logout')}>Cerrar sesión</Link>
+                        </div>
+                      </div>
                     </>
                 )}
             </div>
